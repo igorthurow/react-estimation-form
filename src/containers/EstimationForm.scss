@@ -1,0 +1,158 @@
+$tablet: "(min-width: 768px)";
+$nice-blue: #16417E;
+
+.btn {
+    transition: .25s;
+    border-radius: 5px;
+    color: $nice-blue;
+    background-color: #fff;
+    border: 1px solid $nice-blue;
+    cursor: pointer;
+
+    &:hover,
+    &.active,
+    &:focus {
+        background-color: $nice-blue;
+        color: #fff;
+    }
+}
+
+.title-sm {
+    text-align: center;
+    font-size: 22px;
+    padding-bottom: 10px;
+    color: $nice-blue;
+}
+
+.EstimationForm {
+    display: flex;
+    justify-content: center;
+
+    .wrapper {
+        padding: 0 20px;
+        max-width: 1140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        >.head {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            >h1 {
+                color: $nice-blue;
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+
+            >span {
+                color: #B5B5B5;
+                font-size: 22px;
+            }
+        }
+
+        >.services-type {
+            padding-top: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-direction: column;
+
+            >.service-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+
+                >.service {
+                    min-width: 248px;
+                    padding: 0 10px;
+                    text-align: center;
+                    height: 52px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 22px;
+                    margin-top: 10px;
+
+                    @media (min-width: 768px) {
+                        margin-top: 0;
+
+                        &:first-child {
+                            margin-right: 40px;
+                        }
+                    }
+                }
+            }
+        }
+
+        >.products {
+            padding-top: 50px;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            >.products-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+
+                >.product {
+                    width: 112px;
+                    height: 86px;
+                    font-size: 22px;
+                    border: 1px solid black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 5px;
+                }
+            }
+        }
+
+        >.contact-form {
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            >.contact-form-input-wrapper {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+
+                >.contact-form-field {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 22px;
+                    color: #B5B5B5;
+
+                    >input {
+                        border-radius: 5px;
+                        margin-top: 2px;
+                    }
+
+                    @media #{$tablet} {
+                        &:first-child {
+                            margin-right: 40px;
+                        }
+                    }
+                }
+            }
+
+            >button {
+                display: flex;
+                height: 52px;
+                align-items: center;
+                margin-top: 50px;
+                font-size: 22px;
+                min-width: 250px;
+                padding: 0 10px;
+                justify-content: center;
+            }
+        }
+    }
+}
