@@ -28,12 +28,13 @@ import divaHover from '../assets/diva-02.svg'
 import cortina from '../assets/cortina-01.svg'
 import cortinaHover from '../assets/cortina-02.svg'
 import capitalize from 'capitalize'
+import Sofa from '../views/Sofa'
 
 class EstimationForm extends React.Component<{}, State> {
 	public readonly state: State = {
 		activeProduct: 'cadeira',
 		step: 'impermeabilization',
-		productOptions: {
+		productController: {
 			sofa: {
 				isSet: false,
 				placeQuantity: 0,
@@ -136,26 +137,27 @@ class EstimationForm extends React.Component<{}, State> {
 	public renderProductOption = () => {
 		if (!this.state.activeProduct) return null
 
-		const options = {
-			material: () => <div>O material é tecido</div>,
-			quantity: (title: string) => (
-				<div>
-					<div>{title}</div>
-					<input type='range' />
-				</div>
-			)
-		}
-
 		const content = () => {
 			switch (this.state.activeProduct) {
 				case 'colchão':
-					return <div>{options.quantity('Quantidade de Colchões')}</div>
+					return <div />
 				case 'sofá':
+					const onChangeSetHandler = (isSet: boolean) => {
+						this.setState({
+							productController: {
+								sofa: {
+									...this.state.productController.sofa,
+									isSet
+								}
+							}
+						})
+					}
+
 					return (
-						<div>
-							{options.quantity('Número de lugares do sofá')}
-							{options.quantity('Quantidade de sofás')}
-						</div>
+						<Sofa
+							isSet={this.state.productController.sofa.isSet}
+							onChangeSetHandler={onChangeSetHandler}
+						/>
 					)
 			}
 		}
@@ -253,7 +255,7 @@ interface State {
 		| 'tapete'
 		| 'almofada'
 
-	productOptions: {
+	productController: {
 		sofa: {
 			isSet: boolean
 			sofaQuantity?: number

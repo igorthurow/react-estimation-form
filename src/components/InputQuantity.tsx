@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react' //TODO: Fazer estilo adicioanr restante das Props
 
 const InputQuantity: React.FC<Props> = props => {
 	return (
