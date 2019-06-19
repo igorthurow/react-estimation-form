@@ -2,19 +2,24 @@ $tablet: "(min-width: 768px)";
 $nice-blue: #16417E;
 
 .btn {
-    transition: .25s;
     border-radius: 5px;
     color: $nice-blue;
     background-color: #fff;
     border: 1px solid $nice-blue;
     cursor: pointer;
 
-    &:hover,
-    &.active,
-    &:focus {
-        background-color: $nice-blue;
+    &.active {
         color: #fff;
+        background-color: $nice-blue;
     }
+
+}
+
+.title {
+    color: $nice-blue;
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .title-sm {
@@ -39,12 +44,6 @@ $nice-blue: #16417E;
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            >h1 {
-                color: $nice-blue;
-                font-size: 32px;
-                margin-bottom: 10px;
-            }
 
             >span {
                 color: #B5B5B5;
@@ -107,10 +106,25 @@ $nice-blue: #16417E;
                     border: 1px solid black;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: space-evenly;
                     margin: 5px;
+                    flex-direction: column;
+                    text-align: center;
+
+                    >span {
+                        font-size: 18px;
+                    }
                 }
             }
+        }
+
+        >.selected-product-content {
+            padding-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         >.contact-form {
