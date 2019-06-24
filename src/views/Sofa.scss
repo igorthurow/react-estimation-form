@@ -1,0 +1,16 @@
+.Sofa {
+    width: 100%;
+
+    >.quantity-controller {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        >div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    }
+}

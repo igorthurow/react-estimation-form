@@ -1,6 +1,5 @@
 import React from 'react'
 import './EstimationForm.scss'
-
 import almofada from '../assets/almofada-01.svg'
 import almofadaHover from '../assets/almofada-02.svg'
 import colchao from '../assets/colchao-01.svg'
@@ -37,9 +36,9 @@ class EstimationForm extends React.Component<{}, State> {
 		productController: {
 			sofa: {
 				isSet: false,
-				placeQuantity: 0,
-				selectedSet: '2/3',
-				sofaQuantity: 0
+				placeQuantity: 1,
+				sofaQuantity: 1,
+				selectedSet: '2/3'
 			}
 		}
 	}
@@ -155,8 +154,31 @@ class EstimationForm extends React.Component<{}, State> {
 
 					return (
 						<Sofa
+							onChangePlacesQuantity={placeQuantity =>
+								this.setState({
+									productController: {
+										...this.state.productController,
+										sofa: {
+											...this.state.productController.sofa,
+											placeQuantity
+										}
+									}
+								})
+							}
+							onChangeSofaQuantity={sofaQuantity =>
+								this.setState({
+									productController: {
+										...this.state.productController,
+										sofa: {
+											...this.state.productController.sofa,
+											sofaQuantity
+										}
+									}
+								})
+							}
+							sofaQuantity={this.state.productController.sofa.sofaQuantity}
 							isSet={this.state.productController.sofa.isSet}
-							onChangeSetHandler={onChangeSetHandler}
+							onChangeSet={onChangeSetHandler}
 						/>
 					)
 			}
@@ -258,9 +280,9 @@ interface State {
 	productController: {
 		sofa: {
 			isSet: boolean
-			sofaQuantity?: number
-			placeQuantity?: number
-			selectedSet?: string
+			sofaQuantity: number
+			placeQuantity: number
+			selectedSet: string
 		}
 	}
 

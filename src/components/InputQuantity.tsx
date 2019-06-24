@@ -1,4 +1,5 @@
-import React from 'react' //TODO: Fazer estilo adicioanr restante das Props
+import React from 'react'
+import './InputQuantity.scss'
 
 const InputQuantity: React.FC<Props> = props => {
 	return (
@@ -6,7 +7,7 @@ const InputQuantity: React.FC<Props> = props => {
 			<div className='decrease' onClick={props.onDecrease}>
 				-
 			</div>
-			<div>{props.value}</div>
+			<div className='value'>{props.value || 0}</div>
 			<div onClick={props.onIncrease} className='increase'>
 				+
 			</div>

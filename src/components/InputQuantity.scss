@@ -1,0 +1,29 @@
+$nice-blue: #16417E;
+
+.InputQuantity {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+
+    >.value,
+    >.decrease,
+    >.increase {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 40px;
+        border: 1px solid $nice-blue;
+    }
+
+    >.decrease,
+    >.increase {
+        color: #fff;
+        cursor: pointer;
+        background-color: $nice-blue;
+    }
+
+    >.value {
+        color: $nice-blue;
+    }
+}
