@@ -1,0 +1,19 @@
+$nice-blue: #16417e;
+
+.Button {
+	border-radius: 5px;
+	color: $nice-blue;
+	background-color: #fff;
+	border: 1px solid $nice-blue;
+	cursor: pointer;
+	min-width: 140px;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&.active {
+		color: #fff;
+		background-color: $nice-blue;
+	}
+}

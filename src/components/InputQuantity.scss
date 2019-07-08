@@ -1,29 +1,39 @@
-$nice-blue: #16417E;
+$nice-blue: #16417e;
 
 .InputQuantity {
-    display: flex;
-    align-items: center;
-    max-width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	max-width: 100%;
 
-    >.value,
-    >.decrease,
-    >.increase {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 30px;
-        width: 40px;
-        border: 1px solid $nice-blue;
-    }
+	> .option-title {
+		padding-bottom: 10px;
+	}
 
-    >.decrease,
-    >.increase {
-        color: #fff;
-        cursor: pointer;
-        background-color: $nice-blue;
-    }
+	> .controllers {
+		display: flex;
+		padding-bottom: 5px;
 
-    >.value {
-        color: $nice-blue;
-    }
+		> .value,
+		> .decrease,
+		> .increase {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 30px;
+			width: 40px;
+			border: 1px solid $nice-blue;
+		}
+
+		> .decrease,
+		> .increase {
+			color: #fff;
+			cursor: pointer;
+			background-color: $nice-blue;
+		}
+
+		> .value {
+			color: $nice-blue;
+		}
+	}
 }

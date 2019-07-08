@@ -14,8 +14,6 @@ import poltrona from '../assets/poltrona-01.svg'
 import poltronaHover from '../assets/poltrona-02.svg'
 import puff from '../assets/puff-01.svg'
 import puffHover from '../assets/puff-02.svg'
-import travesseiro from '../assets/travesseiro-01.svg'
-import travesseiroHover from '../assets/travesseiro-02.svg'
 import tapete from '../assets/tapete-01.svg'
 import tapeteHover from '../assets/tapete-02.svg'
 import chaise from '../assets/chaise-01.svg'
@@ -28,17 +26,25 @@ import cortina from '../assets/cortina-01.svg'
 import cortinaHover from '../assets/cortina-02.svg'
 import capitalize from 'capitalize'
 import Sofa from '../views/Sofa'
+import Almofada from '../views/Almofada'
 
 class EstimationForm extends React.Component<{}, State> {
 	public readonly state: State = {
+		user: {
+			name: '',
+			phone: ''
+		},
 		activeProduct: 'cadeira',
 		step: 'impermeabilization',
 		productController: {
 			sofa: {
 				isSet: false,
-				placeQuantity: 1,
+				placeQuantity: [1],
 				sofaQuantity: 1,
-				selectedSet: '2/3'
+				selectedSet: { places: '2/3', type: 'comum' }
+			},
+			almofada: {
+				sizes: [0, 0, 0]
 			}
 		}
 	}
@@ -64,8 +70,7 @@ class EstimationForm extends React.Component<{}, State> {
 		puff: { normal: puff, hover: puffHover },
 		recamier: { normal: recamier, hover: recamierHover },
 		sofá: { normal: sofa, hover: sofaHover },
-		tapete: { normal: tapete, hover: tapeteHover },
-		travesseiro: { normal: travesseiro, hover: travesseiroHover }
+		tapete: { normal: tapete, hover: tapeteHover }
 	}
 
 	public renderProducts = () => {
@@ -138,12 +143,29 @@ class EstimationForm extends React.Component<{}, State> {
 
 		const content = () => {
 			switch (this.state.activeProduct) {
-				case 'colchão':
-					return <div />
+				case 'almofada':
+					return (
+						<Almofada
+							sizes={this.state.productController.almofada.sizes}
+							onChange={sizes =>
+								this.setState({
+									productController: {
+										...this.state.productController,
+										almofada: {
+											...this.state.productController.almofada,
+											sizes
+										}
+									}
+								})
+							}
+						/>
+					)
+
 				case 'sofá':
 					const onChangeSetHandler = (isSet: boolean) => {
 						this.setState({
 							productController: {
+								...this.state.productController,
 								sofa: {
 									...this.state.productController.sofa,
 									isSet
@@ -154,7 +176,23 @@ class EstimationForm extends React.Component<{}, State> {
 
 					return (
 						<Sofa
-							onChangePlacesQuantity={placeQuantity =>
+							placesQuantity={this.state.productController.sofa.placeQuantity}
+							onChangeSelectedSet={(type, places) =>
+								this.setState({
+									productController: {
+										...this.state.productController,
+										sofa: {
+											...this.state.productController.sofa,
+											selectedSet: {
+												places,
+												type
+											}
+										}
+									}
+								})
+							}
+							selectedSet={this.state.productController.sofa.selectedSet}
+							onChangePlacesQuantity={placeQuantity => {
 								this.setState({
 									productController: {
 										...this.state.productController,
@@ -164,18 +202,34 @@ class EstimationForm extends React.Component<{}, State> {
 										}
 									}
 								})
-							}
-							onChangeSofaQuantity={sofaQuantity =>
+							}}
+							onChangeSofaQuantity={sofaQuantity => {
+								const placeQuantity = this.state.productController.sofa
+									.placeQuantity
+
+								if (
+									sofaQuantity > this.state.productController.sofa.sofaQuantity
+								) {
+									placeQuantity.push(1)
+								}
+
+								if (
+									sofaQuantity < this.state.productController.sofa.sofaQuantity
+								) {
+									placeQuantity.pop()
+								}
+
 								this.setState({
 									productController: {
 										...this.state.productController,
 										sofa: {
 											...this.state.productController.sofa,
-											sofaQuantity
+											sofaQuantity,
+											placeQuantity
 										}
 									}
 								})
-							}
+							}}
 							sofaQuantity={this.state.productController.sofa.sofaQuantity}
 							isSet={this.state.productController.sofa.isSet}
 							onChangeSet={onChangeSetHandler}
@@ -197,12 +251,32 @@ class EstimationForm extends React.Component<{}, State> {
 			<div className='contact-form-input-wrapper'>
 				<div className='contact-form-field'>
 					<span>Nome completo</span>
-					<input required placeholder='*Obrigatório' />
+					<input
+						required
+						value={this.state.user.name}
+						placeholder='*Obrigatório'
+						onChange={name =>
+							this.setState({
+								user: { ...this.state.user, name: name.target.value }
+							})
+						}
+					/>
+					{/** //TODO:
+					Input controlado para manter os nomes ao realizar o envio dos dados */}
 				</div>
 
 				<div className='contact-form-field'>
 					<span>Telefone</span>
-					<input required placeholder='*Obrigatório' />
+					<input
+						required
+						value={this.state.user.phone}
+						placeholder='*Obrigatório'
+						onChange={phone =>
+							this.setState({
+								user: { ...this.state.user, phone: phone.target.value }
+							})
+						}
+					/>
 				</div>
 			</div>
 
@@ -261,7 +335,11 @@ class EstimationForm extends React.Component<{}, State> {
 	}
 }
 
-interface State {
+export interface State {
+	user: {
+		name: string
+		phone: string
+	}
 	activeProduct:
 		| 'sofá'
 		| 'colchão'
@@ -269,7 +347,6 @@ interface State {
 		| 'carro'
 		| 'poltrona'
 		| 'puff'
-		| 'travesseiro'
 		| 'chaise longue'
 		| 'recamier'
 		| 'divã'
@@ -281,8 +358,11 @@ interface State {
 		sofa: {
 			isSet: boolean
 			sofaQuantity: number
-			placeQuantity: number
-			selectedSet: string
+			placeQuantity: number[]
+			selectedSet: { places: '2/3' | '2/4'; type: 'comum' | 'retrátil' }
+		}
+		almofada: {
+			sizes: [number, number, number]
 		}
 	}
 

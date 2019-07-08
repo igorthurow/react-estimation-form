@@ -4,21 +4,32 @@ import './InputQuantity.scss'
 const InputQuantity: React.FC<Props> = props => {
 	return (
 		<div className='InputQuantity'>
-			<div className='decrease' onClick={props.onDecrease}>
-				-
-			</div>
-			<div className='value'>{props.value || 0}</div>
-			<div onClick={props.onIncrease} className='increase'>
-				+
+			{props.title && <span className='option-title'>{props.title}</span>}
+			<div className='controllers'>
+				<div
+					className='decrease'
+					onClick={() =>
+						props.value - 1 >= 0 ? props.onChange(props.value - 1) : false
+					}
+				>
+					-
+				</div>
+				<div className='value'>{props.value || 0}</div>
+				<div
+					onClick={() => props.onChange(props.value + 1)}
+					className='increase'
+				>
+					+
+				</div>
 			</div>
 		</div>
 	)
 }
 
 interface Props {
-	value?: number
-	onDecrease?: () => void
-	onIncrease?: () => void
+	value: number
+	onChange: (newValue: number) => void
+	title?: JSX.Element
 }
 
 export default InputQuantity
